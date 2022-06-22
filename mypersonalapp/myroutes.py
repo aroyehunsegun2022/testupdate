@@ -1,7 +1,7 @@
 from crypt import methods
 import email
 from bson import ObjectId
-from flask import Blueprint, render_template, request, jsonify, abort
+from flask import Blueprint, render_template, request, jsonify, abort, redirect, url_for
 from mypersonalapp.extensions import mongo
 import jwt
 
@@ -17,8 +17,12 @@ users = mongo.db
 main = Blueprint('main', __name__)
 
 @main.route('/')
-def index():
-    return('Hello World')
+@main.route('/home', methods=['POST', 'GET'])
+def home():
+    return('welcome home')
+
+# def index():
+#     return render_template('index.html')
 
 # def token_required(f):
 #     @wraps(f)
