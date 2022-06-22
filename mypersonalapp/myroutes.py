@@ -1,7 +1,7 @@
 from crypt import methods
 import email
 from bson import ObjectId
-from flask import Blueprint, request, jsonify, abort
+from flask import Blueprint, render_template, request, jsonify, abort
 from mypersonalapp.extensions import mongo
 import jwt
 
@@ -18,8 +18,7 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return 'Hello World!'
-
+    return('Hello World')
 
 # def token_required(f):
 #     @wraps(f)
