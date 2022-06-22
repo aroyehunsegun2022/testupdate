@@ -1,1 +1,2 @@
-port: 5000
+web: gunicorn myapp:app
+port:5000
