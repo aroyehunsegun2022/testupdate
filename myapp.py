@@ -17,6 +17,5 @@ app.register_blueprint(main)
 
 users = mongo.db.users
 
-
 if __name__=='__main__':
     app.run(debug=True)

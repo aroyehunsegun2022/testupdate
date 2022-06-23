@@ -9,7 +9,6 @@ itsdangerous==2.1.2
 Jinja2==3.0.3
 lazy-object-proxy==1.7.1
 MarkupSafe==2.1.1
-PyJWT==2.4.0
 pymongo==4.1.1
 PythonDNS==0.1
 Werkzeug==2.1.2
