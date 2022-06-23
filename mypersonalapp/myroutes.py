@@ -5,7 +5,6 @@ from flask import Blueprint, request, jsonify, abort
 from mypersonalapp.extensions import mongo
 import jwt
 
-
 from functools import wraps
 import datetime
 
@@ -44,13 +43,15 @@ def token_required(f):
         if not token:
             return jsonify({"message": "missing token"}), 401
         try:
-            data=jwt.decode(token, SECRET_KEY)
+            data=jwt.decode(token, SECRET_KEY, )
             current_user=users.find_one({email: data["email"]}).first()
         except:
             return jsonify({"message": "invalid token"}), 401
         return f(current_user, *args, **kwargs)
     return decorated
 
+    
+# algorithms=["HS256"]
 @main.route('/login', methods=['POST'])
 def userlogin():
     users = mongo.db.user2
@@ -61,8 +62,8 @@ def userlogin():
         return jsonify({'message': 'User does not exist!'})
     if user['password'] != password:
         return jsonify({'message': 'Wrong password!'})
-    token = jwt.encode({'public_id': email, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, SECRET_KEY)
-    return jsonify({'token': token})
+    token = jwt.encode({'email': email, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)}, SECRET_KEY)
+    return jsonify({'token': token.decode('UTF-8')})
 
  
 
@@ -98,7 +99,7 @@ def get_single_template(id):
 
 @main.route('/template/<string:id>', methods=['PUT'])
 def update_template(id):
-    templates = mongo.db.templates2
+    templates = mongo.db.template2
     template = templates.find_one({'id': id})
     if not template:
         return jsonify({'message': 'Template not found!'})
@@ -109,8 +110,8 @@ def update_template(id):
 @main.route('/template/<string:id>', methods=['DELETE'])
 def delete_single_template(id):
     templates = mongo.db.template2
-    template = templates.find_one({'_id': id})
+    template = templates.find_one({'id': id})
     if not template:
         return jsonify({'message': 'Template not found!'})
-    templates.delete_one({'_id': id})
+    templates.delete_one({'id': id})
     return jsonify({'message': 'Template deleted!'})

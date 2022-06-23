@@ -15,4 +15,4 @@ PythonDNS==0.1
 Werkzeug==2.1.2
 wrapt==1.13.3
 gunicorn==20.1.0
-jwt
+PyJWT==1.7.1
