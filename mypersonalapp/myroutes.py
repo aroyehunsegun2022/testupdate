@@ -66,8 +66,6 @@ def userlogin():
     return jsonify({'token': token.decode('UTF-8')})
 
  
-
-
 @main.route('/template', methods=['POST'])
 def insert_new_template():
     templates = mongo.db.template2
